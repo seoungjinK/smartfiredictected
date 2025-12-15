@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Meta 정보와 스타일 통합 -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>얼굴 학습</title>
+    <!-- 외부 CSS 파일 링크 -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='missing_person.css') }}">
+</head>
+<body>
+    <!-- 상단 버튼 -->
+    <div class="button-container">
+        {% if session.role == 'admin' or session.role == 'super_admin' %}
+        <button onclick="window.location.href='/capture'" class="capture-button">미아 방지</button>
+        {% elif session.role == 'user' %}
+        <button onclick="window.location.href='/user'" class="manageusers-button1">메인화면</button>
+        {% elif session.role == 'super_admin' %}
+        <button onclick="window.location.href='/manage_users'" class="manageusers-button">사용자 관리</button>
+        {% endif %}
+        <button onclick="window.location.href='/logout'" class="logout-button">로그아웃</button>
+    </div>
+<div class="background-container"></div>
+<h1>얼굴 학습</h1>
+
+<!-- 비디오 컨테이너 -->
+<div class="video-container">
+    <!-- 미아 방지 CCTV -->
+    <div class="video-box">
+        <h2>미아 방지 CCTV</h2>
+        <div id="stream">
+            <img id="video-streams" class="placeholder" src="" width="640" height="480">
+        </div>
+    </div>
+
+</div>
+
+<!-- 하단 버튼 -->
+<div class="button-container-lower">
+    <button class="recognition-button" onclick="startRecognitions()">얼굴추출버튼</button>
+</div>
+
+<script>
+    
+
+    function startRecognitions() {
+        const videoStream = document.getElementById('video-streams');
+        videoStream.src = '/train_stream';
+    }
+    </script>
+</script>
+</body>
+</html>

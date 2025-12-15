@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>사용자 관리</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='manage_users.css') }}">
+    <!-- JavaScript 코드 -->
+    <script>
+        // 사용자 권한 변경 함수
+        function updateUserPermission(username, action) {
+            fetch('/manage_users', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ username: username, action: action }),
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.status === 'success') {
+                    alert('권한이 성공적으로 변경되었습니다.');
+                    location.reload(); // 페이지 새로고침하여 변경 사항 반영
+                } else {
+                    alert('오류: ' + data.message);
+                }
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+                alert('권한 변경에 실패했습니다.');
+            });
+        }
+
+        // 드롭다운 메뉴 토글 함수
+        function toggleDropdown(event, dropdownId) {
+            event.stopPropagation();
+            var dropdown = document.getElementById(dropdownId);
+            dropdown.style.display = dropdown.style.display === 'block' ? 'none' : 'block';
+        }
+
+        // 페이지 클릭 시 모든 드롭다운 메뉴 닫기
+        window.onclick = function() {
+            var dropdowns = document.getElementsByClassName("dropdown-content");
+            for (var i = 0; i < dropdowns.length; i++) {
+                dropdowns[i].style.display = 'none';
+            }
+        };
+    </script>
+</head>
+<body>
+    <h1>사용자 관리</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>아이디</th>
+                <th>이메일</th>
+                <th>역할</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for user in users %}
+            <tr>
+                <td>{{ user.username }}</td>
+                <td>{{ user.email }}</td>
+                <td>
+                    {% if user.username != session.username and user.role != 'super_admin' %} <!-- 슈퍼 관리자 계정은 권한 변경 제외 -->
+                        <span>{{ user.role }}</span>
+                        <span class="dropdown-icon" onclick="toggleDropdown(event, 'dropdown-{{ loop.index }}')">&#9660;</span>
+                        <div id="dropdown-{{ loop.index }}" class="dropdown-content">
+                            {% if user.role != 'admin' %}
+                                <a href="#" onclick="updateUserPermission('{{ user.username }}', 'grant_admin')">관리자로 설정</a>
+                            {% endif %}
+                            {% if user.role != 'super_admin' %}
+                                <a href="#" onclick="updateUserPermission('{{ user.username }}', 'grant_super_admin')">슈퍼 관리자 설정</a>
+                            {% endif %}
+                            {% if user.role != 'user' %}
+                                <a href="#" onclick="updateUserPermission('{{ user.username }}', 'revoke_admin')">관리자 해제</a>
+                            {% endif %}
+                        </div>
+                    {% else %}
+                        <span>{{ user.role }}</span>
+                    {% endif %}
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <br>
+    <button onclick="window.location.href='/master'">슈퍼 관리자 페이지로 돌아가기</button>
+</body>
+</html>

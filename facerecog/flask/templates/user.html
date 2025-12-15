@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Meta 정보 -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>사용자 - 화재 감지 CCTV</title>
+    <!-- 외부 CSS 파일 링크 -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='user.css') }}">
+</head>
+<body>
+    <div class="background-container"></div>
+    <h1>화재 감지 CCTV</h1>
+    
+    <div class="video-container-wrapper">
+        <!-- Video stream -->
+        <div class="video-container">
+            <div class="video-box">
+                <h2>실시간 CCTV</h2>
+                <!-- 중앙의 CCTV 화면 미리보기 -->
+                <img class="video-preview" src="{{ url_for('video_feed_cctv') }}" width="640" height="480" />
+            </div>
+        </div>
+    </div>
+    <!-- 버튼을 비디오 박스 외부의 오른쪽 끝에 위치 -->
+    <!-- 추가된 로그아웃 버튼 -->
+    <div class="logout-button">
+        <button onclick="window.location.href='/missing_person'" class="manageusers-button">얼굴 등록</button>
+        <button onclick="window.location.href='/logout'">로그아웃</button>
+    </div>
+
+    <script>
+        // 필요한 JavaScript 코드가 있다면 여기에 추가하세요
+    </script>
+</body>
+</html>

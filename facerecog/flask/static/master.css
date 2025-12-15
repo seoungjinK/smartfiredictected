@@ -1,0 +1,330 @@
+/* static/css/master.css */
+
+/* 기본 스타일 */
+body {
+    font-family: Arial, sans-serif;
+    text-align: center -20%;
+    margin: 0;
+    padding: 0;
+    background-color: #f0f0f0;
+    overflow: hidden; /* 전체 페이지 스크롤 방지 */
+}
+
+/* 배경 컨테이너 스타일 */
+.background-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-image: url('/static/images/22.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    z-index: -1;
+}
+
+h1 {
+    margin-left: 34.5%; /* 중앙에서 약간 오른쪽으로 이동 */
+    color: #ffffff;
+}
+
+/* 버튼 컨테이너 스타일 */
+.button-container {
+    position: fixed;
+    top: 10px;
+    right: 10px;
+    display: flex;
+    flex-direction: row; /* 버튼을 세로로 배치 */
+    gap: 10px;
+    z-index: 1000;
+}
+
+/* 로그아웃 버튼 스타일 */
+.logout-button {
+    padding: 10px 20px;
+    font-size: 16px;
+    background-color: #5d5d5d;
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+}
+
+.logout-button:hover {
+    background-color: #9c9b9b;
+}
+
+/* 사용자 관리 버튼 스타일 */
+.manageusers-button {
+    padding: 10px 20px;
+    font-size: 16px;
+    background-color: #3e51fa;
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.manageusers-button:hover {
+    background-color: #9399f7;
+}
+
+/* 메인 컨테이너 스타일 */
+.main-container {
+    display: flex;
+    justify-content: flex-start; /* 왼쪽부터 정렬 */
+    align-items: flex-start; /* 상단 정렬 */
+    gap: 20px; /* 컨테이너 간 간격 줄이기 */
+    margin: 30px;
+    padding: 20px;
+    border-radius: 10px;
+    height: calc(100vh - 100px); /* 상단과 하단 여백을 고려한 높이 */
+    box-sizing: border-box;
+    overflow: hidden; /* 내부 요소 스크롤 방지 */
+}
+
+/* 비디오 컨테이너 스타일 */
+.video-container {
+    display: flex;
+    flex-direction: row; /* 비디오 스트림을 수직으로 배치 */
+    gap: 15px; /* 비디오 간 간격 줄이기 */
+    padding: 15px;
+    border-radius: 10px;
+    flex: 3; /* 센서 데이터 창보다 더 많은 공간을 차지 */
+    height: 80%; /* 메인 컨테이너의 높이와 동일 */
+    box-sizing: border-box;
+}
+
+/* 비디오 박스 스타일 */
+.video-box {
+    border: 2px solid #ffffff; /* 테두리 두께 줄이기 */
+    padding: 10px;
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.5); /* 그림자 줄이기 */
+    background-color: #363636a6;
+    border-radius: 10px;
+    flex: 1; /* 비디오 박스가 컨테이너의 높이에 맞게 확장 */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.video-box h2 {
+    color: #ffffff;
+    margin-bottom: 10px;
+}
+
+.video-stream {
+    width: 100%;
+    height: auto;
+    max-height: 100%;
+    border-radius: 5px;
+}
+
+/* 센서 데이터 컨테이너 스타일 */
+.sensor-data-container {
+    background-color: rgba(255, 255, 255, 0.9);
+    padding: 15px;
+    border-radius: 10px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
+    width: 200px; /* 센서 데이터 창의 너비를 더욱 줄임 */
+    height: 80%; /* 비디오 컨테이너와 동일한 높이 */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    flex: 1; /* 비디오 컨테이너보다 작은 공간을 차지 */
+    box-sizing: border-box;
+}
+
+/* 센서 데이터 타이틀 */
+.sensor-data-container h2 {
+    margin-top: 0;
+    margin-bottom: 30px; /* 간격 조정 */
+    text-align: center;
+    font-size: 25px;
+    color: #333;
+}
+
+/* 센서 게이지 스타일 */
+.sensors {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px; /* 가스 센서와 온도 센서 사이의 간격 줄이기 */
+    flex-grow: 1;
+    justify-content: center;
+}
+
+/* 개별 센서 스타일 */
+.sensor {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* 가스 센서 게이지 색상 */
+.gas-sensor .gauge-fill {
+    stroke: #ffcc00; /* 가스 센서 색상 */
+}
+
+/* 온도 센서 게이지 색상 */
+.temperature-sensor .gauge-fill {
+    stroke: #ff5722; /* 온도 센서 색상 */
+}
+
+/* 게이지 SVG 스타일 */
+.gauge {
+    width: 200px; /* 게이지 크기 확대 */
+    height: 100px; /* 게이지 크기 확대 */
+}
+
+.gauge-bg {
+    fill: none;
+    stroke: #e6e6e6;
+    stroke-width: 8; /* 선 두께 줄이기 */
+}
+
+.gauge-fill {
+    fill: none;
+    stroke-width: 8; /* 선 두께 줄이기 */
+    stroke-linecap: round;
+    stroke-dasharray: 125.66; /* 반원의 둘레 */
+    stroke-dashoffset: 125.66; /* 초기 상태는 빈 상태 */
+    transition: stroke-dashoffset 1s ease-in-out, stroke 1s ease-in-out;
+}
+
+.gauge-text {
+    font-size: 25px; /* 텍스트 크기 축소 */
+    font-weight: bold;
+    fill: #333;
+}
+
+/* 방화문 제어 버튼 스타일 */
+.fire-door-controls {
+    position: fixed;
+    bottom: 15%;
+    left: 43.7%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 15px; /* 버튼 간 간격 조정 */
+    z-index: 1000;
+}
+
+.fire-door-controls button {
+    padding: 12px 25px; /* 버튼 크기 축소 */
+    font-size: 16px; /* 폰트 크기 축소 */
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+}
+
+.fire-door-controls button:hover {
+    background-color: #45a049;
+}
+
+.fire-door-controls .close-button {
+    background-color: #f44336;
+}
+
+.fire-door-controls .close-button:hover {
+    background-color: #d32f2f;
+}
+
+/* 위험 및 사람 경고 스타일 */
+#danger, #person-warning {
+    font-size: 24px; /* 폰트 크기 축소 */
+    font-weight: bold;
+    display: none;
+    position: fixed; /* 고정 위치로 설정 */
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 100;
+    padding: 8px; /* 패딩 축소 */
+    border-radius: 5px;
+    width: 80%;
+    text-align: center;
+}
+
+#danger {
+    color: white;
+    background-color: red;
+    animation: flash 1s infinite;
+}
+
+#person-warning {
+    color: white;
+    background-color: orange;
+    animation: flash 1s infinite;
+}
+
+@keyframes flash {
+    0% { opacity: 1; }
+    50% { opacity: 0; }
+    100% { opacity: 1; }
+}
+
+/* 센서 데이터 업데이트 애니메이션 */
+.update-animation {
+    animation: moveUp 1s ease-in-out;
+}
+
+@keyframes moveUp {
+    from { transform: translateY(0); }
+    to { transform: translateY(-10px); }
+}
+
+/* 반응형 디자인: 화면 너비가 768px 이하일 때 */
+@media (max-width: 768px) {
+    .main-container {
+        flex-direction: column;
+        align-items: center;
+        height: auto;
+        margin: 10px;
+        padding: 10px;
+    }
+
+    .video-container {
+        flex-direction: column;
+        gap: 15px;
+        height: auto;
+    }
+
+    .sensor-data-container {
+        width: 90%;
+        height: auto;
+        border-radius: 20px;
+        margin-top: 20px;
+    }
+
+    .sensors {
+        flex-direction: row;
+        gap: 15px;
+    }
+
+    .refresh-button {
+        margin-top: 10px;
+    }
+
+    .fire-door-controls {
+        position: static;
+        transform: none;
+        margin-top: 20px;
+    }
+}
+/*미아방지버튼*/
+.missing-button {
+    padding: 10px 20px;
+    font-size: 16px;
+    background-color: #ece55c;
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+}

@@ -1,0 +1,86 @@
+/* 기본 스타일 설정 */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f9;
+    text-align: center;
+    color: #333;
+    
+}
+
+h1 {
+    margin-top: 20px;
+    color: #333;
+}
+
+/* 테이블 스타일 */
+table {
+    width: 60%;
+    margin: 20px auto;
+    border-collapse: collapse;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+th, td {
+    padding: 12px;
+    border-bottom: 1px solid #ddd;
+}
+
+th {
+    background-color: #fafafa;
+    color: #333;
+}
+
+td {
+    text-align: center;
+    position: relative;
+}
+
+/* 드롭다운 아이콘 스타일 */
+.dropdown-icon {
+    cursor: pointer;
+    display: inline-block;
+    margin-left: 5px;
+    font-size: 16px;
+    color: #666;
+}
+
+/* 드롭다운 메뉴 스타일 */
+.dropdown-content {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #f9f9f9;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
+    z-index: 1;
+}
+
+.dropdown-content a {
+    color: black;
+    padding: 10px 16px;
+    text-decoration: none;
+    display: block;
+    text-align: left;
+}
+
+.dropdown-content a:hover {
+    background-color: #f1f1f1;
+}
+
+/* 버튼 스타일 */
+button {
+    padding: 8px 16px;
+    font-size: 16px;
+    cursor: pointer;
+    border: none;
+    border-radius: 4px;
+    background-color: #949494;
+    color: white;
+    margin: 10px 0;
+}
+
+button:hover {
+    background-color: #c2c2c2;
+}

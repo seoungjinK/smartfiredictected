@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- 메타 정보 및 타이틀 -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>관리자 화재 감지 CCTV</title>
+    <!-- 외부 CSS 파일 링크 -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='master.css') }}">
+</head>
+<body>
+    <div class="background-container"></div>
+    
+    <!-- 로그아웃 버튼 컨테이너 -->
+    <div class="button-container">
+        <button onclick="window.location.href='/missing_person'" class="missing-button">미아찾기</button>
+        {% if session.role == 'super_admin' %}
+            <button onclick="window.location.href='/manage_users'" class="manageusers-button">사용자 관리</button>
+        {% endif %}
+        <button onclick="window.location.href='/logout'" class="logout-button">로그아웃</button>
+    </div>
+    {% if session.role == 'super_admin' %}
+        <h1>슈퍼 관리자 화재 감지 CCTV</h1>
+    {% elif session.role == 'admin' %}
+        <h1>관리자 화재 감지 CCTV</h1>
+    {% endif %}
+
+    <!-- 메인 컨테이너: 비디오 스트림과 센서 데이터 -->
+    <div class="main-container">
+        <!-- 비디오 스트림 -->
+        <div class="video-container">
+            <!-- 일반 CCTV -->
+            <div class="video-box">
+                <h2>일반 CCTV</h2>
+                <img src="{{ url_for('video_feed_cctv') }}" width="640" height="480" alt="일반 CCTV 스트림"/>
+            </div>
+            
+            <!-- 객체 감지 CCTV -->
+            <div class="video-box">
+                <h2>객체 감지 CCTV</h2>
+                <img src="{{ url_for('video_feed') }}" width="640" height="480" alt="객체 감지 CCTV 스트림"/>
+            </div>
+        </div>
+
+        <!-- 센서 데이터 표시 영역 -->
+        <div id="sensor-data" class="sensor-data-container">
+            <h2>센서 데이터</h2>
+            <div class="sensors">
+                <!-- 가스 센서 게이지 -->
+                <div class="sensor gas-sensor">
+                    <svg class="gauge" viewBox="0 0 100 50">
+                        <path class="gauge-bg" d="M10,50 A40,40 0 0,1 90,50" />
+                        <path class="gauge-fill" d="M10,50 A40,40 0 0,1 90,50" />
+                        <span x="50" y="35" text-anchor="middle" class="gauge-text" id="gas-text">0</span>
+                    </svg>
+                    <p>가스 레벨</p>
+                </div>
+
+                <!-- 온도 센서 게이지 -->
+                <div class="sensor temperature-sensor">
+                    <svg class="gauge" viewBox="0 0 100 50">
+                        <path class="gauge-bg" d="M10,50 A40,40 0 0,1 90,50" />
+                        <path class="gauge-fill" d="M10,50 A40,40 0 0,1 90,50" />
+                        <span x="50" y="35" text-anchor="middle" class="gauge-text" id="temp-text">0</span>
+                    </svg>
+                    <p>온도</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 추가된 방화문 제어 버튼 -->
+    <div class="fire-door-controls">
+        <button onclick="controlFireDoor('open')">방화문 열기</button>
+        <button class="close-button" onclick="controlFireDoor('close')">방화문 닫기</button>
+    </div>
+
+    <!-- Danger and person warning -->
+    <div id="danger">위험! 화재 감지!</div>
+    <div id="person-warning">사람이 감지되었습니다!</div>
+
+    <!-- JavaScript 코드 -->
+    <script>
+        function checkStatus() {
+            // 화재 감지 상태 확인
+            fetch('/flame_status')
+                .then(response => response.json())
+                .then(data => {
+                    const dangerElement = document.getElementById('danger');
+                    if (data.flame_detected) {
+                        dangerElement.style.display = 'block';
+                    } else {
+                        dangerElement.style.display = 'none';
+                    }
+                });
+
+            // 사람 감지 상태 확인
+            fetch('/person_status')
+                .then(response => response.json())
+                .then(data => {
+                    const personWarningElement = document.getElementById('person-warning');
+                    if (data.person_detected) {
+                        personWarningElement.style.display = 'block';
+                    } else {
+                        personWarningElement.style.display = 'none';
+                    }
+                });
+        }
+
+        // 방화문 제어 함수
+        function controlFireDoor(action) {
+            fetch('/control_fire_door', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ action: action }),
+            })
+            .then(response => response.json())
+            .then(data => {
+                alert('방화문 ' + data.status);
+            })
+            .catch((error) => {
+                console.error('오류:', error);
+            });
+        }
+
+        
+         // 센서 데이터 가져오기 및 갱신 함수
+    function fetchSensorData() {
+        fetch('/get_sensor_data')
+            .then(response => response.json())
+            .then(data => {
+                // 가스 센서 업데이트
+                const gasValue = data.gas || 0;
+                    const temperatureValue = data.temperature || 0;
+
+                document.getElementById('gas-text').innerText =gasValue;
+                updateGauge('gas', data.gas);
+
+                // 온도 센서 업데이트
+               
+                document.getElementById('temp-text').innerText =temperatureValue;
+                updateGauge('temperature', data.temperature);
+                
+                
+            })
+            .catch(error => {
+                console.error('센서 데이터 가져오기 오류:', error);
+            });
+    }
+
+    function refreshSensorData() {
+        fetchSensorData();
+    }
+
+    // 게이지 업데이트 함수
+    function updateGauge(type, value) {
+        const maxValues = {
+            gas: 5000, // 가스 센서의 최대 값 (예: 100)
+            temperature: 100 // 온도 센서의 최대 값 (예: 100)
+        };
+
+        const percentage = Math.min((value / maxValues[type]) * 100, 100);
+        const dashArray = 125.66; // 반원의 둘레 (C = π * d, d=40 -> C ≈ 125.66)
+        const dashOffset = dashArray - (dashArray * percentage / 100);
+
+        const gaugeFill = document.querySelector(`#sensor-data .sensor.${type}-sensor .gauge-fill`);
+        gaugeFill.style.strokeDasharray = dashArray;
+        gaugeFill.style.strokeDashoffset = dashOffset;
+    }
+
+    // 페이지 로드 시 센서 데이터 가져오기 및 상태 확인
+    window.onload = function() {
+        fetchSensorData();
+    };
+
+    // 센서 데이터와 상태를 주기적으로 갱신
+    setInterval(() => {
+        fetchSensorData();
+        checkStatus();
+    }, 1000); // 1초마다 갱신
+    </script>
+</body>
+</html>

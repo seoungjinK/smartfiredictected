@@ -1,0 +1,76 @@
+
+/* 스타일은 필요에 따라 수정하세요 */
+body {
+    font-family: Arial, sans-serif;
+    text-align: center;
+    margin: 0;
+    padding: 0;
+    display: grid; /* Grid 사용 */
+    place-items: center; /* 가로와 세로 방향 모두 중앙 정렬 */
+    height: 50vh; /* 전체 화면 높이를 사용하여 중앙 배치 */
+    padding-top: 100px;
+}
+
+/* 배경 컨테이너 스타일 */
+.background-container {
+    position: fixed; /* 화면에 고정하여 스크롤과 관계없이 표시 */
+    top: 0;
+    left: 0;
+    width: 100vw; /* 화면의 전체 너비 */
+    height: 100vh; /* 화면의 전체 높이 */
+    background-image: url('/static/images/8.jpg'); /* 배경 이미지 경로 */
+    background-size: cover; /* 이미지가 화면을 채우도록 설정 */
+    background-position: center; /* 이미지의 중심을 기준으로 설정 */
+    background-repeat: no-repeat; /* 이미지가 반복되지 않도록 설정 */
+    z-index: -1; /* 다른 콘텐츠보다 뒤로 보내기 */
+}
+
+.container {
+    margin-top: 100px;
+}
+
+h1 {
+    color: #ffffff;
+}
+
+.login-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+.login-form input[type="text"],
+.login-form input[type="password"] {
+    padding: 8px;
+    width: 300px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+.button-container {
+    display: flex;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+.button-container button {
+    padding: 10px 20px;
+    font-size: 16px;
+    background-color: #1d1d1d;
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.button-container button:hover {
+    background-color: #3d3d3d;
+}
+
+.error-message {
+    color: red;
+    margin-top: 10px;
+}

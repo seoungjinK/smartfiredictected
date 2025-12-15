@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Meta 정보와 스타일을 통합 -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>회원가입 - 화재 감지 CCTV</title>
+    <!-- 외부 CSS 파일 링크 -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='register.css') }}">
+</head>
+<body>
+    <div class="background-container"></div>
+    <div class="container">
+        <h1>회원가입</h1>
+
+        {% if error %}
+        <div class="error-message">{{ error }}</div>
+        {% endif %}
+
+        <form method="POST" class="register-form">
+            <input type="text" name="username" placeholder="아이디" required>
+            <input type="password" name="password" placeholder="비밀번호" required>
+            <input type="email" name="email" placeholder="이메일" required>
+            <input type="password" name="code" placeholder="관리자 코드가 있는 경우 입력">
+
+            <div class="button-container">
+                <button type="submit">회원가입</button>
+                <button type="button" onclick="window.location.href='/'">취소</button>
+            </div>
+        </form>
+    </div>
+</body>
+</html>

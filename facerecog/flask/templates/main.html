@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>메인 페이지 - 화재 및 미아 방지 시스템</title>
+    <!-- 외부 CSS 파일 링크 -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='main.css') }}">
+</head>
+<body>
+    <div class="background-container"></div>
+    <div class="container">
+        <h1>화재 및 미아 방지 시스템</h1>
+
+        {% if error %}
+        <div class="error-message">{{ error }}</div>
+        {% endif %}
+
+        <form method="POST" class="login-form">
+            <input type="text" name="username" placeholder="아이디" required>
+            <input type="password" name="password" placeholder="비밀번호" required>
+
+            <div class="button-container">
+                <button type="submit">로그인</button>
+                <button type="button" onclick="window.location.href='/register'">회원가입</button>
+            </div>
+        </form>
+    </div>
+</body>
+</html>
