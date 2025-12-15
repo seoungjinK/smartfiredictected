@@ -93,34 +93,8 @@ Flask 웹 프레임워크를 사용하여 다음과 같은 핵심 기능을 제�
     ![모니터링](./image/미아방지cctv.png)
 
 ---
+## 🎥 시연 영상 (Demo Video)
 
-## ⚙️ 설치 및 실행 방법 (Optional)
+> 아래 이미지를 클릭하면 프로젝트 시연 영상을 유튜브에서 확인할 수 있습니다.
 
-1.  **리포지토리 클론:**
-    ```bash
-    git clone [https://github.com/your-username/your-repository-name.git](https://github.com/your-username/your-repository-name.git)
-    cd your-repository-name
-    ```
-
-2.  **가상 환경 생성 및 활성화:**
-    ```bash
-    python -m venv venv
-    source venv/bin/activate  # (Windows: venv\Scripts\activate)
-    ```
-
-3.  **필요 라이브러리 설치:**
-    ```bash
-    pip install -r requirements.txt
-    ```
-
-4.  **데이터베이스 설정:**
-    * MySQL에 `your_database_name` 데이터베이스를 생성합니다.
-    * `config.py` (또는 해당 설정 파일)에 DB 정보를 입력합니다.
-
-5.  **아두이노 펌웨어 업로드:**
-    * `arduino_code/` 폴더의 `.ino` 파일을 아두이노에 업로드합니다.
-
-6.  **Flask 서버 실행:**
-    ```bash
-    flask run
-    ```
+[![TheMoon 시연 영상](./image/로그인창.png)](https://youtu.be/ZWjELPn5YQk)
